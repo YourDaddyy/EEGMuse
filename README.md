@@ -28,16 +28,67 @@ Record a short video (1:40 - 2 minutes maximum) or gif or a simple screen record
 
 
 <a name="demo"></a>
-## 1. Example demo
+## 1. Example Demo
 
-A minimal example to showcase your work
+This section demonstrates how to use the provided scripts for data processing, training, and visualization.
 
-```python
-from amazing import amazingexample
-imgs = amazingexample.demo()
-for img in imgs:
-    view(img)
-```
+### Running Models
+
+1. **Random Forest Classifier**:
+   - Navigate to the `models` directory:
+     ```bash
+     cd src/EEG_Data/Models
+     ```
+   - Execute the `random_forest.py` script:
+     ```bash
+     python random_forest.py
+     ```
+   - This script will:
+     - Load the processed dataset (`output.csv`).
+     - Train the Random Forest model.
+     - Display accuracy metrics and random state results.
+
+2. **K-Nearest Neighbors (KNN) Classifier**:
+   - From the same `models` directory, execute the `knn_classifier.py` script:
+     ```bash
+     python knn_classifier.py
+     ```
+   - This script will:
+     - Train the KNN model using hyperparameter tuning.
+     - Output the best accuracy and average performance across different random states.
+
+### Visualizing Data
+
+1. **Scrolling EEG Data Visualization**:
+   - Navigate to the `visualizations` directory:
+     ```bash
+     cd ../visualizations
+     ```
+   - Run the `visualize_scrolling_eeg.py` script:
+     ```bash
+     python visualize_scrolling_eeg.py
+     ```
+   - This script will generate and display EEG signal plots for scrolling actions.
+
+2. **Swiping EEG Data Visualization**:
+   - Similarly, execute the `visualize_swiping_eeg.py` script:
+     ```bash
+     python visualize_swiping_eeg.py
+     ```
+   - The script will visualize EEG signals associated with swiping actions.
+
+### End-to-End Example
+
+To clean data, extract features, Train the classify model by using pipline.
+1. **Navigate to the `pipline` directory**:
+   ```bash
+   cd ../pipline
+   ```
+2. **Run the `pipline.py` script**:
+   ```bash
+   python pipline.py
+   ```
+
 
 ### What to find where
 
@@ -46,8 +97,8 @@ Explain briefly what files are found where
 ```bash
 repository
 ├── src                          ## source code of the package itself
-├── scripts                      ## scripts, if needed
-├── docs                         ## If needed, documentation   
+  ├── EEG_Data                   ## EEG data and process
+  ├── EEG_Web                   ## If needed, documentation   
 ├── README.md                    ## You are here
 ├── requirements.yml             ## If you use conda
 ```
@@ -55,37 +106,29 @@ repository
 <a name="installation"></a>
 ## 2. Installation
 
+To run this project, set up your development environment by following the steps below:
+
+### Prerequisites:
+- Ensure you have **Python 3.10** or a compatible version installed.
+- Install a package manager (`pip` or `conda`).
+
 ### Using `pip`:
-1. Create a virtual environment:
+1. **Clone the Repository**:
     ```bash
-    python -m venv .venv
+    git clone git@github.com:sfu-cmpt340/2024_3_project_15.git
     ```
-2. Activate the virtual environment:
-    - Windows: 
-      ```bash
-      .\.venv\Scripts\activate
-      ```
-    - Mac/Linux: 
-      ```bash
-      source .venv/bin/activate
-      ```
-3. Install dependencies:
+2. **Install Dependencies**:
     ```bash
-    pip install matplotlib==3.9.2 pandas==2.2.3 scipy==1.14.1 mne==1.8.0 scikit-learn==1.5.2
+    pip install -r requirements.yml
     ```
 
-### Using Conda:
-1. Create and activate the Conda environment:
+### Verifying the Setup:
+1. Test the installation by running:
     ```bash
-    conda create --name eeg_project python=3.10
-    conda activate eeg_project
-    ```
-2. Install dependencies:
-    ```bash
-    conda install matplotlib==3.9.2 pandas==2.2.3 scipy==1.14.1 mne==1.8.0 scikit-learn==1.5.2
+    python -c "import matplotlib, pandas, scipy, mne, sklearn; print('All dependencies are installed.')"
     ```
 
----
+This ensures the environment is correctly set up and ready to run the project.
 
 ### Notes:
 - Ensure you are using Python 3.10 or a compatible version.
@@ -93,16 +136,71 @@ repository
 
 <a name="repro"></a>
 ## 3. Reproduction
-Demonstrate how your work can be reproduced, e.g. the results in your report.
-```bash
-mkdir tmp && cd tmp
-wget https://yourstorageisourbusiness.com/dataset.zip
-unzip dataset.zip
-conda activate amazing
-python evaluate.py --epochs=10 --data=/in/put/dir
-```
-Data can be found at ...
-Output will be saved in ...
+
+Follow these steps to reproduce the results of this project:
+
+### Step 1: Dataset Preparation
+1. **Collect EEG Data**:
+   - Use the Muse2 Brain Sensing Headband and the Muse Direct app to record raw EEG signals.
+   - Save the recordings as CSV files for preprocessing.
+
+2. **Preprocess the Data**:
+   - Navigate to the data preprocessing directory:
+     ```bash
+     cd src/EEG_Data/dataCleaning
+     ```
+   - Run the cleaning script to remove noise and artifacts:
+     ```bash
+     python clean_data.py
+     ```
+   - This will generate a cleaned version of your dataset for feature extraction.
+
+3. **Extract Features**:
+   - Use feature extraction scripts to prepare the dataset for machine learning:
+     ```bash
+     python ./dataAnalyze/feature_extraction.py
+     ```
+
+4. **Result**:
+   - The processed dataset (`output.csv`) will be saved in the `data` directory.
+
+---
+
+### Step 2: Model Training and Testing
+
+1. Navigate to the `models` directory:
+    ```bash
+    cd src/EEG_Data/models
+    ```
+
+2. Train and test the models:
+
+    - **Random Forest Classifier**:
+      ```bash
+      python random_forest.py
+      ```
+
+    - **K-Nearest Neighbors (KNN) Classifier**:
+      ```bash
+      python knn_classifier.py
+      ```
+
+3. Evaluate the performance:
+    - Each script outputs:
+        - Accuracy metrics.
+        - Best random state for splitting the dataset.
+        - Average accuracy across multiple random states.
+
+4. Analyze the results:
+    - Compare the performance of both models to determine which classifier works best for the given dataset.
+    - Use the evaluation metrics to identify potential improvements, such as hyperparameter tuning or additional feature engineering.
+
+## Troubleshooting
+
+- **Muse Connection Issues**: Ensure Bluetooth is properly configured and your Muse headband is charged. Use `muse-lsl list` to confirm if the device is discoverable.
+- **Dependency Errors**: Make sure all dependencies from `requirements.txt` are correctly installed. You may need to use a virtual environment to avoid conflicts.
+
+
 
 <a name="guide"></a>
 ## 4. Guidance
