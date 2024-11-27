@@ -30,23 +30,23 @@ Record a short video (1:40 - 2 minutes maximum) or gif or a simple screen record
 <a name="demo"></a>
 ## 1. Example Demo
 
-This section demonstrates how to use the provided scripts for data processing, training, and visualization.
+This section demonstrates how to run the web and upload the .
 
-### Running Models
+### Start the Web server
 
-1. **Random Forest Classifier**:
-   - Navigate to the `models` directory:
+1. **Run Pipeline for cleaning data**:
+   - Navigate to the `EEG_Web` directory:
      ```bash
-     cd src/EEG_Data/Models
+     cd src/EEG_Web
      ```
-   - Execute the `random_forest.py` script:
+   - Run the `server.py` script:
      ```bash
-     python random_forest.py
+     python server.py
      ```
    - This script will:
-     - Load the processed dataset (`output.csv`).
-     - Train the Random Forest model.
-     - Display accuracy metrics and random state results.
+     - Load the cleaned EEG dataset (`output.csv`).
+     - Train a Random Forest model to classify user actions (e.g., scrolling or swiping).
+     - Display accuracy metrics and results based on different random states.
 
 2. **K-Nearest Neighbors (KNN) Classifier**:
    - From the same `models` directory, execute the `knn_classifier.py` script:
@@ -55,9 +55,9 @@ This section demonstrates how to use the provided scripts for data processing, t
      ```
    - This script will:
      - Train the KNN model using hyperparameter tuning.
-     - Output the best accuracy and average performance across different random states.
+     - Output the best accuracy along with an average performance summary across different runs.
 
-### Visualizing Data
+### Visualizing EEG Data
 
 1. **Scrolling EEG Data Visualization**:
    - Navigate to the `visualizations` directory:
@@ -68,31 +68,32 @@ This section demonstrates how to use the provided scripts for data processing, t
      ```bash
      python visualize_scrolling_eeg.py
      ```
-   - This script will generate and display EEG signal plots for scrolling actions.
+   - This script will generate EEG signal plots for scrolling actions, giving an insight into how EEG activity varies during these interactions.
 
 2. **Swiping EEG Data Visualization**:
-   - Similarly, execute the `visualize_swiping_eeg.py` script:
+   - Execute the `visualize_swiping_eeg.py` script:
      ```bash
      python visualize_swiping_eeg.py
      ```
-   - The script will visualize EEG signals associated with swiping actions.
+   - The script will produce visualizations of EEG signals during swiping actions, helping to understand the distinct patterns.
 
 ### End-to-End Example
 
-To clean data, extract features, Train the classify model by using pipline.
-1. **Navigate to the `pipline` directory**:
+This example walks through cleaning the data, extracting features, and training a classifier:
+
+1. **Navigate to the `pipeline` directory**:
    ```bash
-   cd ../pipline
+   cd ../pipeline
    ```
-2. **Run the `pipline.py` script**:
+2. **Run the `pipeline.py` script**:
    ```bash
-   python pipline.py
+   python pipeline.py
    ```
+   - This script will perform data cleaning, feature extraction, and model training in one go, offering an end-to-end demonstration of the entire workflow.
 
+### Directory Overview
 
-### What to find where
-
-Explain briefly what files are found where
+To make it easier to understand the project structure, here's a brief summary:
 
 ```bash
 repository
