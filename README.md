@@ -1,4 +1,4 @@
-# SFU CMPT 340 Project - EEG Action Classification with Muse2 Brain Sensing Headband 
+# EEG Action Classification with Muse2 Brain Sensing Headband 
 This project focuses on collecting, cleaning, and analyzing EEG data from the Muse2 Brain Sensing Headband. The goal is to classify user actions (e.g., scrolling or swiping) based on brain activity using machine learning models.
 
 
